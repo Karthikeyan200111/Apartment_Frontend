@@ -17,7 +17,7 @@ const SendOtp = () => {
         setLoading(true)
         e.preventDefault();
 
-        const response = await fetch('http://localhost:3001/send-otp', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}send-otp`, {
             method: 'POST',
             body: JSON.stringify({ email }),
             headers: { 'Content-Type': 'application/json' },

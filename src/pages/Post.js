@@ -67,7 +67,7 @@ const Post = () => {
         formData.append('place', place);
 
         try {
-            const response = await fetch('http://localhost:3001/post', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}post`, {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'

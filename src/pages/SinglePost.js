@@ -19,7 +19,7 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/get/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}get/${id}`, {
           method: "GET",
           credentials: "include",
         });
@@ -46,7 +46,7 @@ const SinglePost = () => {
   const handleSubmit = async (postId) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3001/senddetails/${postId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}senddetails/${postId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ const SinglePost = () => {
       <div className="flex flex-col md:flex-row w-full mt-8 animate__animated animate__fadeIn">
         <div className="md:w-1/2 w-full mb-4 md:mb-0">
           <img
-            src={`http://localhost:3001/uploads/${data.place}`}
+            src={`${process.env.REACT_APP_API_URL}uploads/${data.place}`}
             alt="place"
             className="w-full h-full mb-2 rounded-lg"
           />

@@ -18,7 +18,7 @@ const ShowPost = () => {
     const handleDelete = async (id) => {
         setLoading(true)
         try {
-            const response = await fetch(`http://localhost:3001/delete/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}delete/${id}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });
@@ -42,7 +42,7 @@ const ShowPost = () => {
         const fetchDetails = async () => {
             setLoading(true)
             try {
-                const response = await fetch('http://localhost:3001/getpost', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}getpost`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -61,7 +61,7 @@ const ShowPost = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:3001/profile', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}profile`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -131,7 +131,7 @@ const ShowPost = () => {
                                 >
                                     {post.place && (
                                         <img
-                                            src={`http://localhost:3001/uploads/${post.place}`}
+                                            src={`${process.env.REACT_APP_API_URL}uploads/${post.place}`}
                                             alt="place"
                                             className="md:w-full md:h-80 w-96 h-56 mb-2 rounded-lg"
                                         />

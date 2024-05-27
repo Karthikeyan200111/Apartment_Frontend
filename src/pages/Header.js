@@ -5,6 +5,7 @@ import { enqueueSnackbar } from "notistack";
 import { PiBuildingApartmentDuotone } from "react-icons/pi";
 import Hamburger from 'hamburger-react';
 import 'animate.css'; // Import the animate.css library
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -13,9 +14,10 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:3001/logout", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}logout`, {
         method: "POST",
         credentials: "include",
+        
       });
 
       if (response.ok) {
@@ -34,19 +36,33 @@ const Header = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("http://localhost:3001/profile", {
-          credentials: "include",
+        // Retrieve the token from cookies
+        const token = Cookies.get('token');
+        
+        if (!token) {
+          throw new Error('No token found');
+        }
+    
+        const response = await fetch(`${process.env.REACT_APP_API_URL}profile`, {
           method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
         });
-
+    
         if (response.ok) {
           const userData = await response.json();
           setUserInfo(userData);
+        } else {
+          console.error("Failed to fetch user profile:", response.statusText);
         }
       } catch (error) {
         console.error("Error fetching user profile:", error.message);
       }
     };
+    
 
     fetchUserInfo();
   }, [setUserInfo]);

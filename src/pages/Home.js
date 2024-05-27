@@ -5,6 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 import 'animate.css';
 import { Link } from 'react-router-dom';
 import { TailSpin } from 'react-loader-spinner';
+import Cookies from 'js-cookie';
 
 
 
@@ -16,9 +17,19 @@ const Home = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await fetch('http://localhost:3001/profile', {
+                const token = Cookies.get('token');
+        
+                if (!token) {
+                  throw new Error('No token found');
+                }
+            
+                const response = await fetch(`${process.env.REACT_APP_API_URL}profile`, {
                     credentials: 'include',
-                    method: 'GET'
+                    method: 'GET',
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                      },
                 });
 
                 if (response.ok) {
@@ -29,7 +40,7 @@ const Home = () => {
                     console.error('Failed to fetch user info');
                 }
             } catch (error) {
-                console.error('Error fetching user info:', error);
+                console.error('Error fetching user info:', error.message    );
             } finally {
                 setLoading(false);
             }

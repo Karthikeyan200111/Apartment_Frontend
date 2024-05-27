@@ -22,7 +22,7 @@ const Edit = () => {
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/get/${id}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}get/${id}`, {
                     method: 'GET',  
                     credentials: 'include'
                 });
@@ -42,7 +42,7 @@ const Edit = () => {
                     setPet(currentPost.pet);
                     setDescription(currentPost.description);
                     setRatings(currentPost.ratings);
-                    setPlacePreview(`http://localhost:3001/uploads/${currentPost.place}`);
+                    setPlacePreview(`${process.env.REACT_APP_API_URL}uploads/${currentPost.place}`);
                 } else {
                     console.error('Error fetching data');
                 }
@@ -74,7 +74,7 @@ const Edit = () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3001/edit/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}edit/${id}`, {
                 method: 'PUT',
                 body: formData,
                 credentials: 'include'
