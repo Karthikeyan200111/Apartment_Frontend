@@ -87,7 +87,7 @@ const Home = () => {
                 )}
             </div>
             <div>
-                <div className='z-0 flex flex-col items-center justify-center text-white gap-6 h-96 animate__animated animate__fadeIn'>
+                <div className='z-0 flex flex-col items-center justify-center text-white gap-6 h-96 animate__animated animate__fadeIn p-2'>
                     <h1 className='font-bold md:text-6xl uppercase text-center '>WelCome To LuxeLivingLofts</h1>
                     <p className='font-semibold md:text-lg uppercase text-center '>Discover Your Dream Home in the Heart of the City!</p>
                 </div>

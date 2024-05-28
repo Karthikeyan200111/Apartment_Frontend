@@ -142,7 +142,7 @@ const Edit = () => {
                             value='Yes'
                             checked={hospital === 'Yes'}
                             onChange={() => setHospital('Yes')}
-                            className="border-2 border-slate-600 rounded-md p-2 w-4 font-bold"
+                            className="border-2 border-slate-600 rounded-md p-2 w-4  font-bold"
                         />
                         <label className='font-bold mr-2' htmlFor='hospitalYes'>YES</label>
 
