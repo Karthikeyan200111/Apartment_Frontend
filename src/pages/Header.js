@@ -1,27 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { UserContext } from "../userContext";
 import { enqueueSnackbar } from "notistack";
 import { PiBuildingApartmentDuotone } from "react-icons/pi";
 import Hamburger from 'hamburger-react';
 import 'animate.css'; // Import the animate.css library
-import Cookies from 'js-cookie';
 
 const Header = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  console.log('API URL:', apiUrl);
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}logout`, {
-        method: "POST",
-        credentials: "include",
-        
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`${apiUrl}logout`, {}, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+        withCredentials: true,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         setUserInfo(null);
+        localStorage.removeItem('token');
         navigate("/login");
         enqueueSnackbar("Logout Successful", { variant: "success" });
       } else {
@@ -36,24 +42,22 @@ const Header = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        // Retrieve the token from cookies
-        const token = Cookies.get('token');
-        
+        const token = localStorage.getItem('token');
+
         if (!token) {
           throw new Error('No token found');
         }
-    
-        const response = await fetch(`${process.env.REACT_APP_API_URL}profile`, {
-          method: "GET",
+
+        const response = await axios.get(`https://apartment-backend-1.onrender.com/profile`, {
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          credentials: "include",
+          withCredentials: true,
         });
-    
-        if (response.ok) {
-          const userData = await response.json();
+
+        if (response.status === 200) {
+          const userData = response.data;
           setUserInfo(userData);
         } else {
           console.error("Failed to fetch user profile:", response.statusText);
@@ -62,10 +66,9 @@ const Header = () => {
         console.error("Error fetching user profile:", error.message);
       }
     };
-    
 
     fetchUserInfo();
-  }, [setUserInfo]);
+  }, [apiUrl, setUserInfo]);
 
   const username = userInfo?.firstName;
   const role = userInfo?.role;
@@ -106,6 +109,7 @@ const Header = () => {
               )}
               {username && (
                 <>
+                
                   <li className="hidden md:block">
                     <Link to="/show" className="text-xl font-bold uppercase">
                       Show Post

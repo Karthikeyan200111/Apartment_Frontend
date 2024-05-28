@@ -67,10 +67,15 @@ const Post = () => {
         formData.append('place', place);
 
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_API_URL}post`, {
                 method: 'POST',
                 body: formData,
-                credentials: 'include'
+                credentials: 'include',
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                   
+                  }
             });
 
             if (response.ok) {

@@ -22,9 +22,14 @@ const Edit = () => {
     useEffect(() => {
         const fetchDetails = async () => {
             try {
+                const token = localStorage.getItem('token');
                 const response = await fetch(`${process.env.REACT_APP_API_URL}get/${id}`, {
                     method: 'GET',  
-                    credentials: 'include'
+                    credentials: 'include',
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                      }
                 });
 
                 if (response.ok) {
@@ -74,10 +79,15 @@ const Edit = () => {
         }
 
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${process.env.REACT_APP_API_URL}edit/${id}`, {
                 method: 'PUT',
                 body: formData,
-                credentials: 'include'
+                credentials: 'include',
+                 headers: {
+            "Authorization": `Bearer ${token}`,
+           
+          }
             });
 
             if (response.ok) {
@@ -112,7 +122,7 @@ const Edit = () => {
     return (
         <div className='p-3 flex flex-col items-center justify-center w-full '>
             <form onSubmit={handleSubmit}>
-                <div className='flex flex-col w-[35rem] border-solid border-4 rounded-lg bg-yellow-300 border-black p-4 gap-y-3 justify-center'>
+                <div className='flex flex-col w-[18rem] sm:w-[20rem]  md:w-full border-solid border-4 rounded-lg bg-yellow-300 border-black p-4 gap-y-3 justify-center'>
                     <h1 className='text-2xl uppercase font-bold text-center'>Edit Post</h1>
                   
                     <input
@@ -166,7 +176,7 @@ const Edit = () => {
                     />
 
                     <label className='font-bold text-lg uppercase'>College Nearby</label>
-                    <div className='p-1'>
+                    <div className='p-1 flex  items-center w-full gap-1'>
                         <input
                             type="radio"
                             id="collegeYes"
@@ -174,7 +184,7 @@ const Edit = () => {
                             checked={collegeNearBy === 'Yes'}
                             onChange={(e) => setCollegeNearBy(e.target.value)}
                             required
-                            className="border-2 border-slate-600 w-4 rounded-md p-2"
+                            className="border-2 border-slate-600 w-5 h-8 rounded-md p-2"
                         />
                         <label htmlFor="collegeYes" className='font-bold uppercase mr-2'>Yes</label>
 
@@ -185,7 +195,7 @@ const Edit = () => {
                             checked={collegeNearBy === 'No'}
                             onChange={(e) => setCollegeNearBy(e.target.value)}
                             required
-                            className="border-2 border-slate-600 rounded-md p-2"
+                            className="border-2 border-slate-600 rounded-md  w-5 h-8 p-2"
                         />
                         <label htmlFor="collegeNo" className='font-bold uppercase'>No</label>
                     </div>
@@ -200,7 +210,7 @@ const Edit = () => {
                     />
 
                     <label className='font-bold uppercase text-lg'>Furnished</label>
-                    <div className='p-1'>
+                    <div className='p-1 flex  items-center w-full gap-1'>
                         <input
                             type="radio"
                             id="furnishedYes"
@@ -208,7 +218,7 @@ const Edit = () => {
                             checked={furnished === 'Yes'}
                             onChange={() => setFurnished('Yes')}
                             required
-                            className="border-2 border-slate-600 rounded-md p-2"
+                            className="border-2 border-slate-600 rounded-md p-2  w-5 h-8"
                         />
                         <label htmlFor="furnishedYes" className='mr-3 font-bold uppercase'>Yes</label>
                         <input
@@ -218,13 +228,13 @@ const Edit = () => {
                             checked={furnished === 'No'}
                             onChange={() => setFurnished('No')}
                             required
-                            className="border-2 border-slate-600 rounded-md p-2"
+                            className="border-2 border-slate-600 rounded-md p-2  w-5 h-8"
                         />
                         <label className='font-bold uppercase' htmlFor="furnishedNo">No</label>
                     </div>
 
                     <label className='font-bold uppercase text-lg'>Parking</label>
-                    <div className='p-1'>
+                    <div className='p-1 flex  items-center w-full gap-1'>
                         <input
                             type="radio"
                             id="parkingYes"
@@ -232,7 +242,7 @@ const Edit = () => {
                             checked={parking === 'Yes'}
                             onChange={() => setParking('Yes')}
                             required
-                            className='border-b-2 border-black p-2'
+                            className='border-b-2 border-black p-2 w-5 h-8'
                         />
                         <label htmlFor="parkingYes" className='font-bold uppercase mr-3'>Yes</label>
                         <input
@@ -242,13 +252,14 @@ const Edit = () => {
                             checked={parking === 'No'}
                             onChange={() => setParking('No')}
                             required
-                            className="border-2 border-slate-600 rounded-md p-2"
+                            className="border-2 border-slate-600 rounded-md p-2 w-5 h-8"
                         />
                         <label className='font-bold uppercase' htmlFor="parkingNo">No</label>
                     </div>
 
                     <label className='font-bold uppercase text-lg'>Pet</label>
-                    <div className='p-1'>
+                    <div className='p-1 flex  items-center w-full gap-1'>
+                    
                         <input
                             type="radio"
                             id="petYes"
@@ -256,7 +267,7 @@ const Edit = () => {
                             checked={pet === 'Yes'}
                             onChange={() => setPet('Yes')}
                             required
-                            className="border-2 border-slate-600 rounded-md p-2"
+                            className="border-2 border-slate-600 rounded-md p-2 w-5 h-8"
                         />
                         <label className='font-bold uppercase mr-3' htmlFor="petYes">Yes</label>
                         <input
@@ -266,7 +277,7 @@ const Edit = () => {
                             checked={pet === 'No'}
                             onChange={() => setPet('No')}
                             required
-                            className="border-2 border-slate-600 rounded-md p-2"
+                            className="border-2 border-slate-600 rounded-md p-2 w-5 h-8"
                         />
                         <label className='font-bold uppercase' htmlFor="petNo">No</label>
                     </div>

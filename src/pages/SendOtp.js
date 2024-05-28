@@ -16,11 +16,15 @@ const SendOtp = () => {
     const handleSendOtp = async (e) => {
         setLoading(true)
         e.preventDefault();
+        const token = localStorage.getItem('token');
 
         const response = await fetch(`${process.env.REACT_APP_API_URL}send-otp`, {
             method: 'POST',
             body: JSON.stringify({ email }),
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
             credentials: 'include'
         });
 

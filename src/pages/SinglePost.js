@@ -19,9 +19,14 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${process.env.REACT_APP_API_URL}get/${id}`, {
           method: "GET",
           credentials: "include",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          }
         });
 
         if (!response.ok) {
@@ -46,10 +51,12 @@ const SinglePost = () => {
   const handleSubmit = async (postId) => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${process.env.REACT_APP_API_URL}senddetails/${postId}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         credentials: 'include'
       });

@@ -5,23 +5,25 @@ import { FaArrowRight } from "react-icons/fa";
 import 'animate.css';
 import { Link } from 'react-router-dom';
 import { TailSpin } from 'react-loader-spinner';
-import Cookies from 'js-cookie';
+
 
 
 
 
 const Home = () => {
-    const { userInfo, setUserInfo } = useContext(UserContext);
-    const [loading, setLoading] = useState(true);
+    const { userInfo,setUserInfo} = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
+    console.log(userInfo)
 
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const token = Cookies.get('token');
+                const token = localStorage.getItem('token');
         
                 if (!token) {
                   throw new Error('No token found');
                 }
+                console.log(token)
             
                 const response = await fetch(`${process.env.REACT_APP_API_URL}profile`, {
                     credentials: 'include',
@@ -37,7 +39,7 @@ const Home = () => {
                     setUserInfo(data);
                     
                 } else {
-                    console.error('Failed to fetch user info');
+                    console.log('Failed to fetch user info');
                 }
             } catch (error) {
                 console.error('Error fetching user info:', error.message    );
@@ -53,6 +55,7 @@ const Home = () => {
             setLoading(false);
         }
     }, [userInfo, setUserInfo]);
+    
 
     if (loading) {
         return (
@@ -78,7 +81,7 @@ const Home = () => {
             <div className='text-white p-3'>
                 {userInfo?.firstName && (
                     <div>
-                        <h1 className='font-semibold text-xl'>Welcome, {userInfo.firstName}!</h1>
+                        <h1 className='font-semibold text-xl'>Welcome, {userInfo?.firstName}!</h1>
                         {/* Add more user details as needed */}
                     </div>
                 )}
