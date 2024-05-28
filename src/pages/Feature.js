@@ -51,7 +51,7 @@ const Feature = () => {
                     </div>
                 </div>
                 <div className="ml-6 items-center hidden  md:flex justify-center animate__animated animate__slideInRight ">
-                    <img src={feature} alt="feature" className="rounded shadow-lg transition-all hover:duration-100 hover:-translate-y-10 " />
+                    <img src={feature} alt="feature" className="rounded shadow-lg transition-all hover:duration-100  " />
                 </div>
             </div>
         </>

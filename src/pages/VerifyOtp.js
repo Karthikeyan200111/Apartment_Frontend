@@ -15,20 +15,21 @@ const VerifyOtp = () => {
     const handleVerifyOtp = async (e) => {
         setLoading(true)
         e.preventDefault();
-        const token = localStorage.getItem('token');
-
+       
         const response = await fetch(`${process.env.REACT_APP_API_URL}verify-otp`, {
             method: 'POST',
             body: JSON.stringify({email, otp }),
             headers: {
-                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
               },
             credentials: 'include'
         });
 
         if (response.ok) {
-            const responseData = await response.json();
+            const responseData=await response.json();
+            const { token } = responseData
+            localStorage.setItem('token', token);
+            
             setLoading(false)
             setMessage(responseData.msg);
             if (response.status === 200) {
