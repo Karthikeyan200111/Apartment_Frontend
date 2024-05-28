@@ -80,8 +80,8 @@ const Header = () => {
           <div className="flex items-center justify-between p-2 text-white">
             <li>
               <div className="flex items-center justify-center gap-1">
-                <PiBuildingApartmentDuotone className="w-10 h-16" />
-                <Link to="/" className="md:text-xl block font-bold uppercase">
+                <PiBuildingApartmentDuotone className="w-10 h-16 hover:text-yellow-300 cursor-pointer" />
+                <Link to="/" className="md:text-xl block font-bold uppercase hover:text-yellow-300">
                   LuxeLivingLofts
                 </Link>
               </div>
@@ -89,19 +89,19 @@ const Header = () => {
 
             <div className="flex gap-3">
               <li className="hidden md:block">
-                <Link to="/" className="text-xl font-bold uppercase">
+                <Link to="/" className="text-xl font-bold uppercase hover:text-yellow-300">
                   Home
                 </Link>
               </li>
               <li className="hidden md:block">
-                <Link to="/feature" className="text-xl font-bold uppercase">
+                <Link to="/feature" className="text-xl font-bold uppercase hover:text-yellow-300 ">
                   Feature
                 </Link>
               </li>
               {role === "Seller" && (
                 <>
                   <li className="hidden md:block">
-                    <Link to="/post" className="text-xl font-bold uppercase">
+                    <Link to="/post" className="text-xl font-bold uppercase hover:text-yellow-300">
                       Post
                     </Link>
                   </li>
@@ -111,14 +111,14 @@ const Header = () => {
                 <>
                 
                   <li className="hidden md:block">
-                    <Link to="/show" className="text-xl font-bold uppercase">
+                    <Link to="/show" className="text-xl font-bold uppercase hover:text-yellow-300">
                       Show Post
                     </Link>
                   </li>
                   <li className="hidden md:block">
                     <button
                       onClick={handleLogout}
-                      className="text-xl font-bold uppercase"
+                      className="text-xl font-bold uppercase hover:text-yellow-300"
                     >
                       Logout
                     </button>
@@ -128,12 +128,12 @@ const Header = () => {
               {!username && (
                 <>
                   <li className="hidden md:block">
-                    <Link to="/login" className="text-xl font-bold uppercase">
+                    <Link to="/login" className="text-xl font-bold uppercase hover:text-yellow-300">
                       Login
                     </Link>
                   </li>
                   <li className="hidden md:block">
-                    <Link to="/register" className="text-xl font-bold uppercase">
+                    <Link to="/register" className="text-xl font-bold uppercase hover:text-yellow-300">
                       Register
                     </Link>
                   </li>
@@ -147,23 +147,23 @@ const Header = () => {
           {isOpen && (
             <div className="absolute top-20 left-0 w-full bg-slate-800 z-50 flex flex-col gap-3 p-2 items-center justify-center transition-all ease-in-out animate__animated animate__fadeInDown">
               <div>
-                <Link to="/" className="text-xl font-bold uppercase" onClick={() => setOpen(false)}>
+                <Link to="/" className="text-xl font-bold uppercase hover:text-yellow-300" onClick={() => setOpen(false)}>
                   Home
                 </Link>
               </div>
               <div>
-                <Link to="/feature" className="text-xl font-bold uppercase" onClick={() => setOpen(false)}>
+                <Link to="/feature" className="text-xl font-bold uppercase hover:text-yellow-300" onClick={() => setOpen(false)}>
                   Feature
                 </Link>
               </div>
               {role === "Seller" && (
-                <Link to="/post" className="text-xl font-bold uppercase" onClick={() => setOpen(false)}>
+                <Link to="/post" className="text-xl font-bold uppercase hover:text-yellow-300" onClick={() => setOpen(false)}>
                   Post
                 </Link>
               )}
               {username && (
                 <>
-                  <Link to="/show" className="text-xl font-bold uppercase" onClick={() => setOpen(false)}>
+                  <Link to="/show" className="text-xl font-bold uppercase hover:text-yellow-300" onClick={() => setOpen(false)}>
                     Show Post
                   </Link>
                   <button
@@ -171,7 +171,7 @@ const Header = () => {
                       handleLogout();
                       setOpen(false);
                     }}
-                    className="text-xl font-bold uppercase"
+                    className="text-xl font-bold uppercase hover:text-yellow-300"
                   >
                     Logout
                   </button>
@@ -179,10 +179,10 @@ const Header = () => {
               )}
               {!username && (
                 <>
-                  <Link to="/login" className="text-xl font-bold uppercase" onClick={() => setOpen(false)}>
+                  <Link to="/login" className="text-xl font-bold uppercase hover:text-yellow-300" onClick={() => setOpen(false)}>
                     Login
                   </Link>
-                  <Link to="/register" className="text-xl font-bold uppercase" onClick={() => setOpen(false)}>
+                  <Link to="/register" className="text-xl font-bold uppercase hover:text-yellow-300" onClick={() => setOpen(false)}>
                     Register
                   </Link>
                 </>
